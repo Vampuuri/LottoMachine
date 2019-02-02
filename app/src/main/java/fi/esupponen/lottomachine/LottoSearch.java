@@ -1,9 +1,13 @@
 package fi.esupponen.lottomachine;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 
 import java.util.ArrayList;
 
@@ -12,6 +16,21 @@ public class LottoSearch extends Service implements Runnable {
     boolean gameOn;
     int weeks;
     ArrayList<Integer> chosenNumbers;
+
+    public void displayWinNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("You won the lotto!")
+                        .setContentText("Congratulations! It took " + weeks + " weeks to get a match.");
+        int NOTIFICATION_ID = 12345;
+
+        Intent targetIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+        NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        nManager.notify(NOTIFICATION_ID, builder.build());
+    }
 
     public ArrayList<Integer> drawLotto() {
         ArrayList<Integer> lotto = new ArrayList<>();
@@ -50,6 +69,10 @@ public class LottoSearch extends Service implements Runnable {
             if (lottoMatch(drawLotto())) {
                 Debug.print("LottoSearch", "run", "WINNER FOUND", 1);
                 gameOn = false;
+            }
+
+            if (weeks % 100 == 0) {
+                displayWinNotification();
             }
 
             try {

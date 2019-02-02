@@ -19,11 +19,11 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Integer> chosenNumbers;
     boolean serviceOn;
 
-    public void faster(View v) {
+    public void faster() {
         Toast.makeText(this, "+", Toast.LENGTH_SHORT).show();
     }
 
-    public void slower(View v) {
+    public void slower() {
         Toast.makeText(this, "-", Toast.LENGTH_SHORT).show();
     }
 
@@ -89,12 +89,12 @@ public class MainActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case (R.id.clickFaster):
-                Toast.makeText(this, "+", Toast.LENGTH_LONG).show();
+                faster();
                 return true;
         }
         switch (item.getItemId()) {
             case (R.id.clickSlower):
-                Toast.makeText(this, "-", Toast.LENGTH_LONG).show();
+                slower();
                 return true;
         }
         return false;
