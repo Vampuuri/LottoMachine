@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TableRow>
+        <Button style="@style/lottoNumber" android:text="1" />
+        <Button style="@style/lottoNumber" android:text="2" />
+        <Button style="@style/lottoNumber" android:text="3" />
+        <Button style="@style/lottoNumber" android:text="4" />
+        <Button style="@style/lottoNumber" android:text="5" />
+        <Button style="@style/lottoNumber" android:text="6" />
+    </TableRow>
+
+    <TableRow>
+        <Button style="@style/lottoNumber" android:text="7" />
+        <Button style="@style/lottoNumber" android:text="8" />
+        <Button style="@style/lottoNumber" android:text="9" />
+        <Button style="@style/lottoNumber" android:text="10" />
+        <Button style="@style/lottoNumber" android:text="11" />
+        <Button style="@style/lottoNumber" android:text="12" />
+    </TableRow>
+
+    <TableRow>
+        <Button style="@style/lottoNumber" android:text="13" />
+        <Button style="@style/lottoNumber" android:text="14" />
+        <Button style="@style/lottoNumber" android:text="15" />
+        <Button style="@style/lottoNumber" android:text="16" />
+        <Button style="@style/lottoNumber" android:text="17" />
+        <Button style="@style/lottoNumber" android:text="18" />
+    </TableRow>
+
+    <TableRow>
+        <Button style="@style/lottoNumber" android:text="19" />
+        <Button style="@style/lottoNumber" android:text="20" />
+        <Button style="@style/lottoNumber" android:text="21" />
+        <Button style="@style/lottoNumber" android:text="22" />
+        <Button style="@style/lottoNumber" android:text="23" />
+        <Button style="@style/lottoNumber" android:text="24" />
+    </TableRow>
+
+    <TableRow>
+        <Button style="@style/lottoNumber" android:text="25" />
+        <Button style="@style/lottoNumber" android:text="26" />
+        <Button style="@style/lottoNumber" android:text="27" />
+        <Button style="@style/lottoNumber" android:text="28" />
+        <Button style="@style/lottoNumber" android:text="29" />
+        <Button style="@style/lottoNumber" android:text="30" />
+    </TableRow>
+
+    <TableRow>
+        <Button style="@style/lottoNumber" android:text="31" />
+        <Button style="@style/lottoNumber" android:text="32" />
+        <Button style="@style/lottoNumber" android:text="33" />
+        <Button style="@style/lottoNumber" android:text="34" />
+        <Button style="@style/lottoNumber" android:text="35" />
+        <Button style="@style/lottoNumber" android:text="36" />
+    </TableRow>
+
+    <TableRow>
+        <Button style="@style/lottoNumber" android:text="37" />
+        <Button style="@style/lottoNumber" android:text="38" />
+        <Button style="@style/lottoNumber" android:text="39" />
+        <Button style="@style/lottoNumber" android:text="40" />
+        <Space
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <Space
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </TableRow>
+
+    <TextView
+        android:layout_height="0dip"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_margin="10dp"
+        android:textSize="20dp"
+        android:text="Chosen numbers:\n[]"
+        android:id="@+id/text"
+        android:textAlignment="center" />
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="I feel lucky"
+        android:textSize="20dp"
+        android:id="@+id/lucky"
+        android:enabled="false"
+        android:onClick="feelLucky"/>
+
+</TableLayout>
