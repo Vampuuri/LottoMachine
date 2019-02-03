@@ -77,6 +77,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            ArrayList<Integer> numbers = (ArrayList<Integer>) savedInstanceState.get("chosenNumbers");
+
+            if (numbers != null) {
+                chosenNumbers = numbers;
+
+                TextView tv = (TextView) findViewById(R.id.text);
+                tv.setText("Chosen numbers:\n" + chosenNumbers);
+            }
+        }
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putIntegerArrayList("numbers", chosenNumbers);
+
+        super.onSaveInstanceState(outState);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

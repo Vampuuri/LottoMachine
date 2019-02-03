@@ -25,9 +25,9 @@ public class LottoSearch extends Service implements Runnable {
                         .setContentText("Congratulations! It took " + weeks + " weeks to get a match.");
         int NOTIFICATION_ID = 12345;
 
-        Intent targetIntent = new Intent(this, MainActivity.class);
+        /**Intent targetIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
+        builder.setContentIntent(contentIntent);*/
         NotificationManager nManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         nManager.notify(NOTIFICATION_ID, builder.build());
     }
@@ -68,11 +68,8 @@ public class LottoSearch extends Service implements Runnable {
             Debug.print("LottoSearch", "run", "week: " + weeks, 1);
             if (lottoMatch(drawLotto())) {
                 Debug.print("LottoSearch", "run", "WINNER FOUND", 1);
-                gameOn = false;
-            }
-
-            if (weeks % 100 == 0) {
                 displayWinNotification();
+                gameOn = false;
             }
 
             try {
