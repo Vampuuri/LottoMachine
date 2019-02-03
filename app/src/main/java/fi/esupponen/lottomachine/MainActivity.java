@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.os.Binder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,7 +52,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //
+    class LocalBinder extends Binder {
+        private LottoSearch service;
+
+        public LocalBinder(LottoSearch lottoSearch) {
+            service = lottoSearch;
+        }
+
+        public LottoSearch getService() {
+            return service;
+        }
+    }
 
     ArrayList<Integer> chosenNumbers;
     ArrayList<Button> numberButtons;
