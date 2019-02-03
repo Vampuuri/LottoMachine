@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(this, LottoSearch.class);
                 intent.putExtra("chosenNumbers", chosenNumbers);
+                intent.putExtra("skillLevel", skillLevel);
                 startService(intent);
 
                 ((Button)findViewById(R.id.lucky)).setText("I give up");

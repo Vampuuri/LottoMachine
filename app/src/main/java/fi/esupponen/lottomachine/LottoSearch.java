@@ -19,6 +19,7 @@ public class LottoSearch extends Service implements Runnable {
     boolean gameOn;
     int weeks;
     int sleepTime;
+    int skillLevel;
     ArrayList<Integer> chosenNumbers;
 
     public void displayWinNotification() {
@@ -26,7 +27,7 @@ public class LottoSearch extends Service implements Runnable {
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("You won the lotto!")
-                        .setContentText("Congratulations! It took " + weeks + " weeks to get a match.");
+                        .setContentText("Congratulations! It took " + weeks + " weeks to get " + skillLevel + " right.");
         int NOTIFICATION_ID = 1;
 
         /**Intent targetIntent = new Intent(this, MainActivity.class);
@@ -53,16 +54,17 @@ public class LottoSearch extends Service implements Runnable {
     }
 
     public boolean lottoMatch(ArrayList<Integer> lotto) {
-        boolean match = true;
+        int rightNumbers = 0;
 
         for (Integer i : chosenNumbers) {
-            if (!lotto.contains(i)) {
-                match = false;
-                break;
+            if (lotto.contains(i)) {
+                rightNumbers++;
             }
         }
 
-        return match;
+        Debug.print("LottoSearch", "drawLotto", "rightNumbers: " + rightNumbers, 3);
+
+        return rightNumbers >= skillLevel;
     }
 
     @Override
@@ -113,6 +115,7 @@ public class LottoSearch extends Service implements Runnable {
         if (!serviceOn) {
             Debug.print("LottoSearch", "onStartCommand", "service starting", 2);
             chosenNumbers = (ArrayList<Integer>) intent.getExtras().getSerializable("chosenNumbers");
+            skillLevel = intent.getExtras().getInt("skillLevel");
             gameOn = true;
             Thread t = new Thread(this);
             t.start();
