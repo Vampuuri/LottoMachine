@@ -79,7 +79,6 @@
         android:layout_weight="1"
         android:layout_margin="10dp"
         android:textSize="20dp"
-        android:text="Chosen numbers:\n[]"
         android:id="@+id/text"
         android:textAlignment="center" />
 

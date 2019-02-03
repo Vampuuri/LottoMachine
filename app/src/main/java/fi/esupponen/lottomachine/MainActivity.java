@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             int weeks = intent.getExtras().getInt("passedWeeks");
 
             TextView tv = (TextView) findViewById(R.id.text);
-            tv.setText("Chosen numbers:\n" + chosenNumbers + "\n\n" + weeks + " weeks passed.");
+            tv.setText(weeks + " weeks passed.");
 
             for (Integer i : lottoNumbers) {
                 numberButtons.get(i.intValue() - 1).getBackground().setColorFilter(Color.YELLOW, PorterDuff.Mode.MULTIPLY);
@@ -75,9 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 chosenNumbers.add(chosen);
                 ((Button)v).getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
             }
-
-            TextView tv = (TextView) findViewById(R.id.text);
-            tv.setText("Chosen numbers:\n" + chosenNumbers);
 
             if (chosenNumbers.size() == 7) {
                 ((Button)findViewById(R.id.lucky)).setEnabled(true);
@@ -175,9 +172,6 @@ public class MainActivity extends AppCompatActivity {
 
             if (numbers != null) {
                 chosenNumbers = numbers;
-
-                TextView tv = (TextView) findViewById(R.id.text);
-                tv.setText("Chosen numbers:\n" + chosenNumbers);
             }
         }
     }
