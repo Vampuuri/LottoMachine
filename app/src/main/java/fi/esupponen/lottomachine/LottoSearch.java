@@ -13,6 +13,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import java.util.ArrayList;
 
 public class LottoSearch extends Service implements Runnable {
+    IBinder myBinder;
+
     boolean serviceOn;
     boolean gameOn;
     int weeks;
@@ -105,7 +107,16 @@ public class LottoSearch extends Service implements Runnable {
         return START_STICKY;
     }
 
+    public void stop() {
+        Debug.print("LottoSearch", "stop", "stopped", 2);
+        serviceOn = false;
+        gameOn = false;
+        weeks = 0;
+    }
+
     public void onCreate() {
+        myBinder = new LocalBinder(this);
+
         serviceOn = false;
         gameOn = false;
         weeks = 0;
@@ -120,6 +131,11 @@ public class LottoSearch extends Service implements Runnable {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return myBinder;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        return false;
     }
 }

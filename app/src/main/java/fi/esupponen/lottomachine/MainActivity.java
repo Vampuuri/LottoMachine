@@ -1,12 +1,15 @@
 package fi.esupponen.lottomachine;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Binder;
+import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,22 +55,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class LocalBinder extends Binder {
-        private LottoSearch service;
-
-        public LocalBinder(LottoSearch lottoSearch) {
-            service = lottoSearch;
-        }
-
-        public LottoSearch getService() {
-            return service;
-        }
-    }
-
+    // Game related variables
     ArrayList<Integer> chosenNumbers;
     ArrayList<Button> numberButtons;
     boolean serviceOn;
     IterationListener iListener;
+
+    // Binding related variables
+    ServiceConnection connectionToService;
+    LottoSearch lottoSearch;
+    boolean isBounded = false;
+
 
     public void faster() {
         Toast.makeText(this, "+", Toast.LENGTH_SHORT).show();
@@ -98,36 +96,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void feelLucky(View v) {
-        if (serviceOn) {
-            serviceOn = false;
-            Intent intent = new Intent(this, LottoSearch.class);
-            stopService(intent);
-            ((Button)findViewById(R.id.lucky)).setText("I feel lucky");
-        } else {
-            Debug.print("MainActivity", "feelLucky", "pushed", 1);
+        if (isBounded) {
+            if (serviceOn) {
+                serviceOn = false;
+                lottoSearch.stop();
+                ((Button)findViewById(R.id.lucky)).setText("I feel lucky");
+            } else {
+                Debug.print("MainActivity", "feelLucky", "pushed", 1);
 
-            serviceOn = true;
+                serviceOn = true;
 
-            Intent intent = new Intent(this, LottoSearch.class);
-            intent.putExtra("chosenNumbers", chosenNumbers);
-            startService(intent);
+                Intent intent = new Intent(this, LottoSearch.class);
+                intent.putExtra("chosenNumbers", chosenNumbers);
+                startService(intent);
 
-            ((Button)findViewById(R.id.lucky)).setText("I give up");
+                ((Button)findViewById(R.id.lucky)).setText("I give up");
+            }
         }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        chosenNumbers = new ArrayList<>();
-        Debug.loadDebug(this);
-        serviceOn = false;
-        iListener = new IterationListener();
-        LocalBroadcastManager.getInstance(this).registerReceiver(iListener, new IntentFilter("passedIteration"));
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        createNumberButtonsList();
     }
 
     public void createNumberButtonsList() {
@@ -175,6 +160,39 @@ public class MainActivity extends AppCompatActivity {
         numberButtons.add((Button) findViewById(R.id.number40));
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        chosenNumbers = new ArrayList<>();
+        Debug.loadDebug(this);
+        serviceOn = false;
+        iListener = new IterationListener();
+        connectionToService = new MyServiceConnection();
+        LocalBroadcastManager.getInstance(this).registerReceiver(iListener, new IntentFilter("passedIteration"));
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        createNumberButtonsList();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        Intent intent = new Intent(this, LottoSearch.class);
+        bindService(intent, connectionToService, Context.BIND_AUTO_CREATE);
+    }
+
+     @Override
+     protected void onStop() {
+        super.onStop();
+
+        if (isBounded) {
+            unbindService(connectionToService);
+            isBounded = false;
+        }
+     }
+
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -216,5 +234,19 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return false;
+    }
+
+    class MyServiceConnection implements android.content.ServiceConnection {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            LocalBinder binder = (LocalBinder) service;
+            lottoSearch = binder.getService();
+            isBounded = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isBounded = false;
+        }
     }
 }
