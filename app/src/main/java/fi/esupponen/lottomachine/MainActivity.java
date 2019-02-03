@@ -1,6 +1,10 @@
 package fi.esupponen.lottomachine;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +20,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
+    class IterationListener extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Debug.print("IterationListener", "onReceive", "broadcast reveiced", 2);
+        }
+    }
+
     ArrayList<Integer> chosenNumbers;
     boolean serviceOn;
+    IterationListener iListener;
 
     public void faster() {
         Toast.makeText(this, "+", Toast.LENGTH_SHORT).show();
@@ -72,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
         chosenNumbers = new ArrayList<>();
         Debug.loadDebug(this);
         serviceOn = false;
+        iListener = new IterationListener();
+        LocalBroadcastManager.getInstance(this).registerReceiver(iListener, new IntentFilter("passedIteration"));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

@@ -7,64 +7,64 @@
     tools:context=".MainActivity">
 
     <TableRow>
-        <Button style="@style/lottoNumber" android:text="1" />
-        <Button style="@style/lottoNumber" android:text="2" />
-        <Button style="@style/lottoNumber" android:text="3" />
-        <Button style="@style/lottoNumber" android:text="4" />
-        <Button style="@style/lottoNumber" android:text="5" />
-        <Button style="@style/lottoNumber" android:text="6" />
+        <Button style="@style/lottoNumber" android:id="@+id/number1" android:text="1" />
+        <Button style="@style/lottoNumber" android:id="@+id/number2" android:text="2" />
+        <Button style="@style/lottoNumber" android:id="@+id/number3" android:text="3" />
+        <Button style="@style/lottoNumber" android:id="@+id/number4" android:text="4" />
+        <Button style="@style/lottoNumber" android:id="@+id/number5" android:text="5" />
+        <Button style="@style/lottoNumber" android:id="@+id/number6" android:text="6" />
     </TableRow>
 
     <TableRow>
-        <Button style="@style/lottoNumber" android:text="7" />
-        <Button style="@style/lottoNumber" android:text="8" />
-        <Button style="@style/lottoNumber" android:text="9" />
-        <Button style="@style/lottoNumber" android:text="10" />
-        <Button style="@style/lottoNumber" android:text="11" />
-        <Button style="@style/lottoNumber" android:text="12" />
+        <Button style="@style/lottoNumber" android:id="@+id/number7" android:text="7" />
+        <Button style="@style/lottoNumber" android:id="@+id/number8" android:text="8" />
+        <Button style="@style/lottoNumber" android:id="@+id/number9" android:text="9" />
+        <Button style="@style/lottoNumber" android:id="@+id/number10" android:text="10" />
+        <Button style="@style/lottoNumber" android:id="@+id/number11" android:text="11" />
+        <Button style="@style/lottoNumber" android:id="@+id/number12" android:text="12" />
     </TableRow>
 
     <TableRow>
-        <Button style="@style/lottoNumber" android:text="13" />
-        <Button style="@style/lottoNumber" android:text="14" />
-        <Button style="@style/lottoNumber" android:text="15" />
-        <Button style="@style/lottoNumber" android:text="16" />
-        <Button style="@style/lottoNumber" android:text="17" />
-        <Button style="@style/lottoNumber" android:text="18" />
+        <Button style="@style/lottoNumber" android:id="@+id/number13" android:text="13" />
+        <Button style="@style/lottoNumber" android:id="@+id/number14" android:text="14" />
+        <Button style="@style/lottoNumber" android:id="@+id/number15" android:text="15" />
+        <Button style="@style/lottoNumber" android:id="@+id/number16" android:text="16" />
+        <Button style="@style/lottoNumber" android:id="@+id/number17" android:text="17" />
+        <Button style="@style/lottoNumber" android:id="@+id/number18" android:text="18" />
     </TableRow>
 
     <TableRow>
-        <Button style="@style/lottoNumber" android:text="19" />
-        <Button style="@style/lottoNumber" android:text="20" />
-        <Button style="@style/lottoNumber" android:text="21" />
-        <Button style="@style/lottoNumber" android:text="22" />
-        <Button style="@style/lottoNumber" android:text="23" />
-        <Button style="@style/lottoNumber" android:text="24" />
+        <Button style="@style/lottoNumber" android:id="@+id/number19" android:text="19" />
+        <Button style="@style/lottoNumber" android:id="@+id/number20" android:text="20" />
+        <Button style="@style/lottoNumber" android:id="@+id/number21" android:text="21" />
+        <Button style="@style/lottoNumber" android:id="@+id/number22" android:text="22" />
+        <Button style="@style/lottoNumber" android:id="@+id/number23" android:text="23" />
+        <Button style="@style/lottoNumber" android:id="@+id/number24" android:text="24" />
     </TableRow>
 
     <TableRow>
-        <Button style="@style/lottoNumber" android:text="25" />
-        <Button style="@style/lottoNumber" android:text="26" />
-        <Button style="@style/lottoNumber" android:text="27" />
-        <Button style="@style/lottoNumber" android:text="28" />
-        <Button style="@style/lottoNumber" android:text="29" />
-        <Button style="@style/lottoNumber" android:text="30" />
+        <Button style="@style/lottoNumber" android:id="@+id/number25" android:text="25" />
+        <Button style="@style/lottoNumber" android:id="@+id/number26" android:text="26" />
+        <Button style="@style/lottoNumber" android:id="@+id/number27" android:text="27" />
+        <Button style="@style/lottoNumber" android:id="@+id/number28" android:text="28" />
+        <Button style="@style/lottoNumber" android:id="@+id/number29" android:text="29" />
+        <Button style="@style/lottoNumber" android:id="@+id/number30" android:text="30" />
     </TableRow>
 
     <TableRow>
-        <Button style="@style/lottoNumber" android:text="31" />
-        <Button style="@style/lottoNumber" android:text="32" />
-        <Button style="@style/lottoNumber" android:text="33" />
-        <Button style="@style/lottoNumber" android:text="34" />
-        <Button style="@style/lottoNumber" android:text="35" />
-        <Button style="@style/lottoNumber" android:text="36" />
+        <Button style="@style/lottoNumber" android:id="@+id/number31" android:text="31" />
+        <Button style="@style/lottoNumber" android:id="@+id/number32" android:text="32" />
+        <Button style="@style/lottoNumber" android:id="@+id/number33" android:text="33" />
+        <Button style="@style/lottoNumber" android:id="@+id/number34" android:text="34" />
+        <Button style="@style/lottoNumber" android:id="@+id/number35" android:text="35" />
+        <Button style="@style/lottoNumber" android:id="@+id/number36" android:text="36" />
     </TableRow>
 
     <TableRow>
-        <Button style="@style/lottoNumber" android:text="37" />
-        <Button style="@style/lottoNumber" android:text="38" />
-        <Button style="@style/lottoNumber" android:text="39" />
-        <Button style="@style/lottoNumber" android:text="40" />
+        <Button style="@style/lottoNumber" android:id="@+id/number37" android:text="37" />
+        <Button style="@style/lottoNumber" android:id="@+id/number38" android:text="38" />
+        <Button style="@style/lottoNumber" android:id="@+id/number39" android:text="39" />
+        <Button style="@style/lottoNumber" android:id="@+id/number40" android:text="40" />
         <Space
             android:layout_height="match_parent"
             android:layout_weight="1"/>
