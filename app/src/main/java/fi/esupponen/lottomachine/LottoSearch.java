@@ -73,17 +73,21 @@ public class LottoSearch extends Service implements Runnable {
             weeks++;
             Debug.print("LottoSearch", "run", "week: " + weeks, 2);
             ArrayList<Integer> lotto = drawLotto();
-
-            if (lottoMatch(lotto)) {
-                Debug.print("LottoSearch", "run", "WINNER FOUND", 1);
-                displayWinNotification();
-                gameOn = false;
-            }
+            boolean match = lottoMatch(lotto);
 
             LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
             Intent i = new Intent("passedIteration");
             i.putExtra("lottoNumbers", lotto);
             i.putExtra("passedWeeks", weeks);
+            i.putExtra("win", match);
+
+            if (match) {
+                Debug.print("LottoSearch", "run", "WINNER FOUND", 1);
+                displayWinNotification();
+                gameOn = false;
+                weeks = 0;
+            }
+
             manager.sendBroadcast(i);
 
             try {

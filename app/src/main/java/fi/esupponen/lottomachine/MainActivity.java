@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
             for (Button b : numberButtons) {
                 if (chosenNumbers.contains(new Integer(b.getText().toString()))) {
-                    b.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+                    b.getBackground().setColorFilter(Color.YELLOW, PorterDuff.Mode.MULTIPLY);
                 } else {
                     b.getBackground().clearColorFilter();
                 }
@@ -45,12 +45,27 @@ public class MainActivity extends AppCompatActivity {
 
             ArrayList<Integer> lottoNumbers = intent.getExtras().getIntegerArrayList("lottoNumbers");
             int weeks = intent.getExtras().getInt("passedWeeks");
-
             TextView tv = (TextView) findViewById(R.id.text);
-            tv.setText(weeks + " weeks passed.");
 
             for (Integer i : lottoNumbers) {
-                numberButtons.get(i.intValue() - 1).getBackground().setColorFilter(Color.YELLOW, PorterDuff.Mode.MULTIPLY);
+                Button b = numberButtons.get(i.intValue() - 1);
+
+                if (chosenNumbers.contains(new Integer(i.intValue()))) {
+                    b.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+                } else {
+                    b.getBackground().setColorFilter(Color.CYAN, PorterDuff.Mode.MULTIPLY);
+                }
+            }
+
+            if (intent.getExtras().getBoolean("win")) {
+                tv.setText("Congratulations!" +
+                        "\nIt took you " + weeks + " weeks to get " + skillLevel + " right!");
+                gameOver = true;
+                serviceOn = false;
+                Button luckyButton = (Button) findViewById(R.id.lucky);
+                luckyButton.setText("Play again?");
+            } else {
+                tv.setText(weeks + " weeks passed.");
             }
         }
     }
@@ -59,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Integer> chosenNumbers;
     ArrayList<Button> numberButtons;
     boolean serviceOn;
+    boolean gameOver;
     IterationListener iListener;
     int skillLevel;
 
@@ -89,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 ((Button)v).getBackground().clearColorFilter();
             } else if (chosenNumbers.size() < 7) {
                 chosenNumbers.add(chosen);
-                ((Button)v).getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+                ((Button)v).getBackground().setColorFilter(Color.YELLOW, PorterDuff.Mode.MULTIPLY);
             }
 
             if (chosenNumbers.size() == 7) {
@@ -102,7 +118,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void feelLucky(View v) {
         if (isBounded) {
-            if (serviceOn) {
+            if (gameOver) {
+                chosenNumbers.clear();
+                gameOver = false;
+                ((Button)v).setText("I feel lucky");
+                ((Button)v).setEnabled(false);
+                ((TextView)findViewById(R.id.text)).setText("");
+
+                for (Button b : numberButtons) {
+                    b.getBackground().clearColorFilter();
+                }
+            } else if (serviceOn) {
                 serviceOn = false;
                 lottoSearch.stop();
                 ((Button)findViewById(R.id.lucky)).setText("I feel lucky");
@@ -171,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         chosenNumbers = new ArrayList<>();
         Debug.loadDebug(this);
         serviceOn = false;
+        gameOver = false;
         skillLevel = 7;
         iListener = new IterationListener();
         connectionToService = new MyServiceConnection();
