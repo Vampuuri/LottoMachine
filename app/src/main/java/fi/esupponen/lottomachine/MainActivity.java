@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -24,6 +26,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Debug.print("IterationListener", "onReceive", "broadcast reveiced", 2);
+
+            ArrayList<Integer> lottoNumbers = intent.getExtras().getIntegerArrayList("lottoNumbers");
+            int weeks = intent.getExtras().getInt("passedWeeks");
+
+            TextView tv = (TextView) findViewById(R.id.text);
+            tv.setText("Chosen numbers:\n" + chosenNumbers + "\n" + weeks + " weeks passed.");
         }
     }
 

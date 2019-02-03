@@ -16,6 +16,7 @@ public class LottoSearch extends Service implements Runnable {
     boolean serviceOn;
     boolean gameOn;
     int weeks;
+    int sleepTime;
     ArrayList<Integer> chosenNumbers;
 
     public void displayWinNotification() {
@@ -44,7 +45,7 @@ public class LottoSearch extends Service implements Runnable {
             }
         }
 
-        Debug.print("LottoSearch", "drawLotto", "numbers: " + lotto, 2);
+        Debug.print("LottoSearch", "drawLotto", "numbers: " + lotto, 3);
 
         return lotto;
     }
@@ -66,7 +67,7 @@ public class LottoSearch extends Service implements Runnable {
     public void run() {
         while (gameOn) {
             weeks++;
-            Debug.print("LottoSearch", "run", "week: " + weeks, 1);
+            Debug.print("LottoSearch", "run", "week: " + weeks, 2);
             ArrayList<Integer> lotto = drawLotto();
 
             if (lottoMatch(lotto)) {
@@ -82,7 +83,7 @@ public class LottoSearch extends Service implements Runnable {
             manager.sendBroadcast(i);
 
             try {
-                Thread.sleep(100);
+                Thread.sleep(sleepTime);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -92,13 +93,13 @@ public class LottoSearch extends Service implements Runnable {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!serviceOn) {
-            Debug.print("LottoSearch", "onStartCommand", "service starting", 1);
+            Debug.print("LottoSearch", "onStartCommand", "service starting", 2);
             chosenNumbers = (ArrayList<Integer>) intent.getExtras().getSerializable("chosenNumbers");
             gameOn = true;
             Thread t = new Thread(this);
             t.start();
         } else {
-            Debug.print("LottoSearch", "onStartCommand", "service already on", 1);
+            Debug.print("LottoSearch", "onStartCommand", "service already on", 2);
         }
 
         return START_STICKY;
@@ -108,6 +109,7 @@ public class LottoSearch extends Service implements Runnable {
         serviceOn = false;
         gameOn = false;
         weeks = 0;
+        sleepTime = 250;
     }
 
     public void onDestroy() {
