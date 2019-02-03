@@ -92,6 +92,22 @@ public class LottoSearch extends Service implements Runnable {
         }
     }
 
+    public void faster() {
+        if (sleepTime > 10) {
+            sleepTime -= 10;
+        }
+
+        Debug.print("LottoSearch", "faster", "sleepTime: " + sleepTime, 2);
+    }
+
+    public void slower() {
+        if (sleepTime <= 990) {
+            sleepTime += 10;
+        }
+
+        Debug.print("LottoSearch", "slower", "sleepTime: " + sleepTime, 2);
+    }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!serviceOn) {

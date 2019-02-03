@@ -68,11 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void faster() {
-        Toast.makeText(this, "+", Toast.LENGTH_SHORT).show();
+        if (isBounded) {
+            lottoSearch.faster();
+        }
     }
 
     public void slower() {
-        Toast.makeText(this, "-", Toast.LENGTH_SHORT).show();
+        if (isBounded) {
+            lottoSearch.slower();
+        }
     }
 
     public void numberClicked(View v) {
