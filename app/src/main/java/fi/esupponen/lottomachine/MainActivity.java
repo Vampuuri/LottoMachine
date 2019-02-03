@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Button> numberButtons;
     boolean serviceOn;
     IterationListener iListener;
+    int skillLevel;
 
     // Binding related variables
     ServiceConnection connectionToService;
@@ -169,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         chosenNumbers = new ArrayList<>();
         Debug.loadDebug(this);
         serviceOn = false;
+        skillLevel = 7;
         iListener = new IterationListener();
         connectionToService = new MyServiceConnection();
         LocalBroadcastManager.getInstance(this).registerReceiver(iListener, new IntentFilter("passedIteration"));
@@ -235,6 +237,30 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case (R.id.clickSlower):
                 slower();
+                return true;
+        }
+        switch (item.getItemId()) {
+            case (R.id.difficulty5):
+                if (!serviceOn) {
+                    item.setChecked(true);
+                    skillLevel = 5;
+                }
+                return true;
+        }
+        switch (item.getItemId()) {
+            case (R.id.difficulty6):
+                if (!serviceOn) {
+                    item.setChecked(true);
+                    skillLevel = 6;
+                }
+                return true;
+        }
+        switch (item.getItemId()) {
+            case (R.id.difficulty7):
+                if (!serviceOn) {
+                    item.setChecked(true);
+                    skillLevel = 7;
+                }
                 return true;
         }
         return false;
